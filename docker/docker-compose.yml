@@ -1,15 +1,14 @@
-version: '3.8'
 
 services:
     # Apache + PHP Service
     apache:
         build:
-            context: .
-            dockerfile: ./docker/Dockerfile
+            context: ..
+            dockerfile: docker/Dockerfile
         ports:
             - "80:80"  # Expose Apache on port 80
         volumes:
-            - .:/var/www/html  # Map your Laravel project to Apache's root
+            - ../:/var/www/html  # Map the root directory to Apache's root
         depends_on:
             - sqlserver
         networks:
@@ -20,7 +19,7 @@ services:
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
             ACCEPT_EULA: "Y"
-            SA_PASSWORD: "YourStrong!Passw0rd"
+            SA_PASSWORD: "123456"
             MSSQL_PID: "Developer"
         ports:
             - "1433:1433"
