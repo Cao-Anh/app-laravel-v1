@@ -1,0 +1,42 @@
+FROM php:8.3.9-apache
+
+# Declare composer version
+ENV COMPOSER_VERSION=2.7.7
+
+RUN apt-get update \
+    && apt-get install -y \
+        curl \
+        zip \
+        unzip \
+        git \
+        supervisor \
+        libpng-dev \
+        libpq-dev \
+        libzip-dev \
+        gnupg \
+        tzdata \
+    && docker-php-ext-install \
+        bcmath \
+        gd \
+        opcache \
+        sockets \
+        zip
+
+# Set Apache DocumentRoot to /public
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+
+# Enable Apache modules
+RUN a2enmod rewrite headers
+
+# Set correct permissions
+# RUN chown -R www-data:www-data /var/www/html \
+#     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Copy existing application directory contents
+COPY . /var/www/html
+
+# Expose port 80
+EXPOSE 80
+
+CMD ["apache2-foreground"]
