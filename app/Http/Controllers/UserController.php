@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index() 
     {   
-        if (!Auth::check()) {
+        if (!Auth::user()) {
     
             return redirect()->route('login')->with('error', 'Bạn cần phải đăng nhập.');
         }
