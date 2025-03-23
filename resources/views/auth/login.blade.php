@@ -26,8 +26,8 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <label>Username:</label>
-            <input type="text" name="username" id="username" value="{{ old('username') }}" required>
+            <label>email:</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
 
             <label>Mật khẩu:</label>
             <input type="password" name="password" required>
