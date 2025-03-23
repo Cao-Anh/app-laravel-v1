@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('success'))
+<script>
+    alert({{ json_encode(session('success')) }});
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    alert({{ json_encode(session('error')) }});
+</script>
+@endif
 <div class="container">
     <div class="login-box">
         <h2>Màn hình đăng nhập</h2>

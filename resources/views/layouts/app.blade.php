@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
+
+    <!-- Display Flash Messages -->
+    @if (session('success'))
+        <script>
+            alert({{ json_encode(session('success')) }});
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            alert({{ json_encode(session('error')) }});
+        </script>
+    @endif
+
     <header>
         <nav>
             <a href="/">Home</a> |
@@ -22,5 +36,6 @@
     <footer>
         <p>Laravel Training @2025</p>
     </footer>
+
 </body>
 </html>
