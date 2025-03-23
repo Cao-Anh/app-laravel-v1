@@ -18,11 +18,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'email' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = ['username' => $request->username, 'password' => $request->password];
+        $credentials = ['email' => $request->username, 'password' => $request->password];
 
         if (Auth::attempt($credentials, $request->remember)) {
             session()->regenerate();
