@@ -25,7 +25,10 @@
         <nav>
             <a href="/">Home</a> |
             <a href="{{ route('users.index') }}">Users</a> |
-            {{-- <a href="{{ route('logout') }}">Logout</a> --}}
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
         </nav>
     </header>
 
