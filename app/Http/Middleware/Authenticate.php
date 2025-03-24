@@ -9,7 +9,7 @@ class Authenticate
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
+        if (!Auth::user()) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập!');
         }
 
