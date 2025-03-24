@@ -4,7 +4,7 @@ services:
     container_name: app-laravel-v1
     build:
       context: .
-      dockerfile: docker_config/web/Dockerfile
+      dockerfile: ../docker_config/web/Dockerfile
     volumes:
       - .:/var/www/html
     ports:
