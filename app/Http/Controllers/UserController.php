@@ -25,10 +25,27 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'username'=>'required|string|min:3|max:8',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'description'=>'nullable|string'
+        ]);
+        $user = User::findOrFail($id);
+        $user->update([
+            'username'=> $request->username,
+            'email'=> $request->email,
+            'description'=> $request->description,
+        ]);
+        return redirect()->route('users.show',$id)->with('success', 'Cập nhật thành công.');
+
+    }
+
     public function destroy(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')->with('success', 'Xóa thành công.');
     }
 }
