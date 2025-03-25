@@ -23,7 +23,7 @@
 
     <header>
         <nav>
-            <a href="/">Home</a> |
+            <a href="{{ route('register') }}">Dang ki</a> |
             <a href="{{ route('users.index') }}">Users</a> |
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
