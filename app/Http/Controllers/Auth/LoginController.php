@@ -26,12 +26,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             session()->regenerate();
+<<<<<<< Updated upstream
             // dd(Auth::user());
 
             return redirect()->route('users.index')->with('success', 'Đăng nhập thành công!');
+=======
+            return redirect()->route('users.index');
+>>>>>>> Stashed changes
         }
 
-        return back()->with('error', 'Tên đăng nhập hoặc mật khẩu không đúng.');
+        return back()->with('login_error', 'Tên đăng nhập hoặc mật khẩu không đúng.');
     }
     // public function login(Request $request)
     // {
