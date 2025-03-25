@@ -18,9 +18,9 @@
                 <td><?= htmlspecialchars($user->description ?? '') ?></td>
             </tr>
         </table>
-        {{-- @can('update', $post)
-            <a href="{{ route('posts.edit', $post->id) }}">Edit</a>
-        @endcan --}}
+        @if (auth()->check() && (auth()->user()->role == 'admin' || auth()->user()->id == $user->id))
+            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Chỉnh sửa</a>
+        @endif
 
     </div>
 @endsection

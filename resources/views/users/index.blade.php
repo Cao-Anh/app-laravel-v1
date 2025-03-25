@@ -20,12 +20,18 @@
                         <td>{{ $user->description }}</td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}">Xem</a>
-                            <a href="{{ route('users.edit', $user->id) }}">Sửa</a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
-                            </form>
+                            @if (auth()->check() && (auth()->user()->role == 'admin' || auth()->user()->id == $user->id))
+                                <a href="{{ route('users.edit', $user->id) }}">Sửa</a>
+                            @endif
+                            @if (auth()->check() && (auth()->user()->role == 'admin' || auth()->user()->id == $user->id))
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</button>
+                                </form>
+                            @endif
+
                         </td>
                     </tr>
                 @endforeach
