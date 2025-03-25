@@ -21,10 +21,10 @@ class RegisterController extends Controller
             'password' => 'required|string|min:5|max:9|regex:/[A-Z]/|confirmed',
         ]);
         if(User::where('username',$request->username)->exists()){
-            return back()->with('error','Tên người dùng này đã được đăng kí.');
+            return back()->with('register_error','Tên người dùng này đã được đăng kí.');
         }
         if(User::where('email',$request->email)->exists()){
-            return back()->with('error','Email này đã được đăng kí.');
+            return back()->with('register_error','Email này đã được đăng kí.');
         }
         $user=User::create([
             'username'=>$request->username,
