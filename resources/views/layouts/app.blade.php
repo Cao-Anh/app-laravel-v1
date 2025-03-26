@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel App</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body>
+
+    <!-- Display Flash Messages -->
+    @if (session('error'))
+        <script>
+            alert(@json(session('error')));
+            // console.log(@json(session('error')));
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+            // console.log(@json(session('success')));
+        </script>
+    @endif
     <header>
         <nav>
-            <a href="/">Home</a> |
+            <a href="{{ route('register') }}">Dang ki</a> |
             <a href="{{ route('users.index') }}">Users</a> |
-            {{-- <a href="{{ route('logout') }}">Logout</a> --}}
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
         </nav>
     </header>
 
     <div class="container">
-        @yield('content')  <!-- This is where child content will be inserted -->
+        @yield('content') <!-- This is where child content will be inserted -->
     </div>
 
     <footer>
         <p>Laravel Training @2025</p>
     </footer>
+
 </body>
+
 </html>
