@@ -16,12 +16,10 @@
     <div class="login-box">
         <h2>Màn hình đăng nhập</h2>
 
-        @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+        @if (session('login_error'))
+            <div class="alert alert-danger">{{ session('login_error') }}</div>
         @endif
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+       
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

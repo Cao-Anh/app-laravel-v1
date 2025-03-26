@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Đăng ký tài khoản</h2>
 
-    @if(session('error'))
+    @if(session('register_error'))
         <div class="alert alert-danger">{{ session('register_error') }}</div>
     @endif
 

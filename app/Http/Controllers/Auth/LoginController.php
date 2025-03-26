@@ -29,7 +29,7 @@ class LoginController extends Controller
             return redirect()->route('users.index')->with('success', 'Đăng nhập thành công!');
         }
 
-        return back()->with('error', 'Tên đăng nhập hoặc mật khẩu không đúng.');
+        return back()->with('login_error', 'Tên đăng nhập hoặc mật khẩu không đúng.');
     }
 
     public function logout(Request $request)
@@ -37,6 +37,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login')->with('success', 'Đã đăng xuất thành công!');
+        return redirect('/login')->with('success', 'Đã đăng xuất thành công.');
     }
 }
