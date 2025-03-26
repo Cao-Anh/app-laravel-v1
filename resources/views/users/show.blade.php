@@ -19,7 +19,7 @@
             </tr>
         </table>
         @if (auth()->check() && (auth()->user()->role == 'admin' || auth()->user()->id == $user->id))
-            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Chỉnh sửa</a>
+        <button onclick="window.location.href='{{ route('users.edit', $user->id) }}'">Chỉnh sửa</button>
         @endif
 
     </div>

@@ -1,49 +1,44 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <h2>Đăng ký tài khoản</h2>
+    <div class="container">
+        <h2>Đăng ký tài khoản</h2>
 
-    @if(session('register_error'))
-        <div class="alert alert-danger">{{ session('register_error') }}</div>
-    @endif
+        @if (session('register_error'))
+            <div>{{ session('register_error') }}</div>
+        @endif
 
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        
-        <div class="form-group">
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+
             <label for="username">Tên đăng nhập:</label>
-            <input type="text" id="username" name="username" class="form-control" value="{{ old('username') }}" required>
+            <input type="text" id="username" name="username" value="{{ old('username') }}" required>
             @error('username')
-                <small class="text-danger">{{ $message }}</small>
+                <small>{{ $message }}</small>
             @enderror
-        </div>
 
-        <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
+            <input type="email" id="email" name="email" value="{{ old('email') }}" required>
             @error('email')
-                <small class="text-danger">{{ $message }}</small>
+                <small>{{ $message }}</small>
             @enderror
-        </div>
 
-        <div class="form-group">
             <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+            <input type="password" id="password" name="password" required>
             @error('password')
-                <small class="text-danger">{{ $message }}</small>
+                <small>{{ $message }}</small>
             @enderror
-        </div>
 
-        <div class="form-group">
-            <label for="password_confirmation">Nhập lại Mật khẩu:</label> 
-            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
+            <label for="password_confirmation">Nhập lại Mật khẩu:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" required>
             @error('password_confirmation')
-                <small class="text-danger">{{ $message }}</small>
+                <small>{{ $message }}</small>
             @enderror
-        </div>
 
-        <button type="submit" class="btn btn-primary">Đăng ký</button>
-    </form>
-</div>
+            <div class="button-container">
+                <p><a href="{{ route('login') }}">Đã có tài khoản</a></p>
+                <button type="submit">Đăng ký</button>
+            </div>
+        </form>
+    </div>
 @endsection
