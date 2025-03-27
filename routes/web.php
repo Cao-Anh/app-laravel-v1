@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ChangePwController;
+use App\Http\Controllers\Auth\ResetPwController;
+
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -16,6 +18,7 @@ Route::post('/change-password', [ChangePwController::class, 'changePassword']);
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('forgotPassword');
+Route::post('/forgot-password', [ResetPwController::class, 'sendResetLink']);
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {

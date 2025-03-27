@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
-class ResetPasswordController extends Controller
+class ResetPwController extends Controller
 {
     public function sendResetLink(Request $request)
     {
