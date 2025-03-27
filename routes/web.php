@@ -13,7 +13,9 @@ Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/change-password', [ChangePwController::class, 'showChangePasswordForm'])->name('changePassword');
 Route::post('/change-password', [ChangePwController::class, 'changePassword']);
-
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('forgotPassword');
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {
