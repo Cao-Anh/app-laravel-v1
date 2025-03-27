@@ -16,3 +16,5 @@ data:
 	docker exec app-laravel-v1 bash -c "php artisan migrate:refresh --seed"	
 serve:
 	docker exec app-laravel-v1 bash -c "php artisan serve"
+clear-optimize:
+	docker exec app-laravel-v1 bash -c "php artisan optimize:clear"
