@@ -36,8 +36,8 @@
             </div>
 
             <div class="button-container">
-                <a href="changePassword.php" class="forgot">Đổi mật khẩu</a>
-                <a href="forgotPassword.php" class="forgot">Quên mật khẩu</a>
+                <a href="{{ route('changePassword') }}" class="forgot">Đổi mật khẩu</a>
+                <a href="{{ route('login') }}" class="forgot">Quên mật khẩu</a>
                 <button type="submit">Đăng nhập</button>
             </div>
         </form>
