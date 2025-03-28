@@ -35,21 +35,44 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'username'=>'required|string|min:3|max:8',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'description'=>'nullable|string'
-        ]);
-        $user = User::findOrFail($id);
-        $user->update([
-            'username'=> $request->username,
-            'email'=> $request->email,
-            'description'=> $request->description,
-        ]);
-        return redirect()->route('users.show',$id)->with('success', 'Cập nhật thành công.');
+{
+    $request->validate([
+        'username' => 'required|string|min:3|max:8',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'description' => 'nullable|string',
+        'photo' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048' 
+    ]);
 
+    $user = User::findOrFail($id);
+
+    if ($request->hasFile('photo')) {
+        // dd($request->file('photo'));
+        $file = $request->file('photo');
+    
+        $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $timestamp = now()->timestamp;
+        $extension = $file->getClientOriginalExtension();
+        $uniqueFilename = $filename . '_' . $timestamp . '.' . $extension;
+    
+        $photoPath = $file->storeAs('users', $uniqueFilename, 'public');
+        $photoUrl = 'storage/users/' . $uniqueFilename; 
+    
+        $user->photo = $photoUrl;
     }
+    
+    
+
+    $user->update([
+        'username' => $request->username,
+        'email' => $request->email,
+        'description' => $request->description,
+    ]);
+
+    $user->save(); 
+
+    return redirect()->route('users.show', $id)->with('success', 'Cập nhật thành công.');
+}
+
 
     public function destroy(Request $request, $id)
     {   
