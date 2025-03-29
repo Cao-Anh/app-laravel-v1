@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 @if (session('success'))
@@ -16,18 +16,16 @@
     <div class="login-box">
         <h2>Màn hình đăng nhập</h2>
 
-        @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+        @if (session('login_error'))
+            <div class="error">{{ session('login_error') }}</div>
         @endif
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+       
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <label>Username:</label>
-            <input type="text" name="username" id="username" value="{{ old('username') }}" required>
+            <label>Email:</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
 
             <label>Mật khẩu:</label>
             <input type="password" name="password" required>
@@ -38,6 +36,8 @@
             </div>
 
             <div class="button-container">
+                <a href="{{ route('changePassword') }}" class="forgot">Đổi mật khẩu</a>
+                <a href="{{ route('password.request') }}" class="forgot">Quên mật khẩu</a>
                 <button type="submit">Đăng nhập</button>
             </div>
         </form>

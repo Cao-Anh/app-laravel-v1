@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'description',
-        'role'
+        'photo',
+        'role',
+        'remember_token'
     ];
 
     /**
@@ -47,8 +49,5 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function getAuthIdentifierName()
-    {
-        return 'username';
-    }
+   
 }

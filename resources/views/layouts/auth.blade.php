@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel App</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 
 <body>
@@ -26,10 +26,9 @@
     <header>
         <nav>
             <a href="{{ route('users.index') }}">Trang chủ</a> |
-            <form style="display:inline" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" style="all: unset ;cursor: pointer;display: inline;">Đăng xuất</button>
-            </form>
+            <a href="{{ route('login') }}">Đăng nhập</a> |
+            <a href="{{ route('register') }}">Đăng kí</a> |
+
         </nav>
     </header>
 
