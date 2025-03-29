@@ -49,13 +49,20 @@ class UserController extends Controller
         // dd($request->file('photo'));
         $file = $request->file('photo');
     
-        $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $timestamp = now()->timestamp;
-        $extension = $file->getClientOriginalExtension();
-        $uniqueFilename = $filename . '_' . $timestamp . '.' . $extension;
+        // $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        // $timestamp = now()->timestamp;
+        // $extension = $file->getClientOriginalExtension();
+        // $uniqueFilename = $filename . '_' . $timestamp . '.' . $extension;
     
-        $photoPath = $file->storeAs('users', $uniqueFilename, 'public');
-        $photoUrl = 'storage/users/' . $uniqueFilename; 
+        // $photoPath = $file->storeAs('users', $uniqueFilename, 'public');
+        // $photoUrl = 'storage/users/' . $uniqueFilename; 
+
+
+
+        $imageName = time().'.'.$request->photo->extension();  
+
+        $request->photo->move(public_path('images'), $imageName);
+        $photoUrl= 'images/'. $imageName;
     
         $user->photo = $photoUrl;
     }
