@@ -17,8 +17,57 @@ Route::get('/change-password', [ChangePwController::class, 'showChangePasswordFo
 Route::post('/change-password', [ChangePwController::class, 'changePassword']);
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
+<<<<<<< Updated upstream
 })->name('forgotPassword');
 Route::post('/forgot-password', [ResetPwController::class, 'sendResetLink']);
+=======
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+ 
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+ 
+    return $status === Password::ResetLinkSent
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|string|min:5|max:9|regex:/[A-Z]/|confirmed',
+    ]);
+ 
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function (User $user, string $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->setRememberToken(Str::random(60));
+ 
+            $user->save();
+ 
+            event(new PasswordReset($user));
+        }
+    );
+ 
+    return $status === Password::PasswordReset
+        ? redirect()->route('login')->with('status', __($status))
+        : back()->withErrors(['email' => [__($status)]]);
+})->middleware('guest')->name('password.update');
+
+Route::get('/welcome', function(){
+    return view('welcome');
+});
+>>>>>>> Stashed changes
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {
