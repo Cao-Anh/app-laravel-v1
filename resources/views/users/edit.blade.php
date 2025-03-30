@@ -10,13 +10,19 @@
             </div>
         @endif
 
-        <form action="{{ route('users.update', $user->id) }}" method="POST">
+        <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <label for="username">Người dùng</label>
             <input type="text" id="username" name="username" value="{{ old('username', $user->username) }}" required>
             @error('username')
+                <small>{{ $message }}</small>
+            @enderror
+
+            <label for="photo">Ảnh đại diện</label>
+            <input type="file" id="photo" name="photo" accept="image/*" >
+            @error('photo')
                 <small>{{ $message }}</small>
             @enderror
 

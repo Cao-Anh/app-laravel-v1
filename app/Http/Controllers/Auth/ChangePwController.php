@@ -18,27 +18,25 @@ class ChangePwController extends Controller
     }
 
     public function changePassword(Request $request)
-{
-    $validator = Validator::make($request->only(['email', 'current_password', 'new_password','new_password_confirmation']), [
-        'email' => 'required|email|exists:users,email',
-        'current_password' => 'required|string|min:5|max:9|regex:/[A-Z]/',
-        'new_password' => 'required|string|min:5|max:9|regex:/[A-Z]/|confirmed',
-    ]);
+    {
+        $validator = Validator::make($request->only(['email', 'current_password', 'new_password', 'new_password_confirmation']), [
+            'email' => 'required|email|exists:users,email',
+            'current_password' => 'required|string|min:5|max:9|regex:/[A-Z]/',
+            'new_password' => 'required|string|min:5|max:9|regex:/[A-Z]/|confirmed',
+        ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('change_pw_error', 'Email hoặc mật khẩu hiện tại không đúng.');
+        }
+
+        $user->update(['password' => Hash::make($request->new_password)]);
+
+        return back()->with('change_pw_success', 'Mật khẩu đã được thay đổi thành công.');
     }
-
-    $user = User::where('email', $request->email)->first();
-
-    // Check if the password is correct
-    if (!Hash::check($request->current_password, $user->password)) {
-        return back()->with('change_pw_error', 'Email hoặc mật khẩu hiện tại không đúng.');
-    }
-
-    // Update the password
-    $user->update(['password' => Hash::make($request->new_password)]);
-
-    return back()->with('change_pw_success', 'Mật khẩu đã được thay đổi thành công.');
-}
 }

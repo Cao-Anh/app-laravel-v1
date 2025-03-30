@@ -5,7 +5,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ChangePwController;
-use App\Http\Controllers\Auth\ResetPwController;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -15,12 +21,10 @@ Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/change-password', [ChangePwController::class, 'showChangePasswordForm'])->name('changePassword');
 Route::post('/change-password', [ChangePwController::class, 'changePassword']);
+
+//reset password
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
-<<<<<<< Updated upstream
-})->name('forgotPassword');
-Route::post('/forgot-password', [ResetPwController::class, 'sendResetLink']);
-=======
 })->middleware('guest')->name('password.request');
 
 Route::post('/forgot-password', function (Request $request) {
@@ -64,10 +68,6 @@ Route::post('/reset-password', function (Request $request) {
         : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
-Route::get('/welcome', function(){
-    return view('welcome');
-});
->>>>>>> Stashed changes
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {

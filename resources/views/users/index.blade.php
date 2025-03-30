@@ -7,6 +7,7 @@
             <thead>
                 <tr>
                     <th>Người dùng</th>
+                    <th>hinh anh</th>
                     <th>Email</th>
                     <th>Mô tả</th>
                     <th>Lệnh</th>
@@ -16,6 +17,13 @@
                 @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->username }}</td>
+                        <td >
+                            <?php if (!empty($user->photo)): ?>
+                            <img src="<?= asset($user->photo) ?>" alt="User Image" style="max-width: 150px; height: auto;">
+                            <?php else: ?>
+                                <p>No image available</p>
+                            <?php endif; ?>
+                        </td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->description }}</td>
                         <td>

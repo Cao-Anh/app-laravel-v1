@@ -10,6 +10,15 @@
                 <td><?= htmlspecialchars($user->username) ?></td>
             </tr>
             <tr>
+                <td colspan="2">
+                    <?php if (!empty($user->photo)): ?>
+                        <img src="{{ asset($user->photo) }}" alt="User Image" style="max-width: 150px; height: auto;">
+                    <?php else: ?>
+                        <p>No image available</p>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
                 <th>Email:</th>
                 <td><?= htmlspecialchars($user->email) ?></td>
             </tr>

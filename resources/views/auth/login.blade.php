@@ -37,7 +37,7 @@
 
             <div class="button-container">
                 <a href="{{ route('changePassword') }}" class="forgot">Đổi mật khẩu</a>
-                <a href="{{ route('login') }}" class="forgot">Quên mật khẩu</a>
+                <a href="{{ route('password.request') }}" class="forgot">Quên mật khẩu</a>
                 <button type="submit">Đăng nhập</button>
             </div>
         </form>
