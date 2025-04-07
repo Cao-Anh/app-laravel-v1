@@ -26,29 +26,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             session()->regenerate();
-            // dd(Auth::user());
-
             return redirect()->route('users.index')->with('success', 'Đăng nhập thành công!');
         }
 
         return back()->with('error', 'Tên đăng nhập hoặc mật khẩu không đúng.');
     }
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'username' => 'required',
-    //         'password' => 'required'
-    //     ]);
-
-    //     // Attempt login with username instead of email
-    //     if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-    //         // ✅ Login successful, just load dashboard (no redirect)
-    //         return view('dashboard');
-    //     } else {
-    //         // ❌ Login failed, show error message
-    //         return back()->with('error', 'Sai tên đăng nhập hoặc mật khẩu.');
-    //     }
-    // }
 
     public function logout(Request $request)
     {

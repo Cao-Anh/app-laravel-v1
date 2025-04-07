@@ -7,7 +7,7 @@
         <table>
             <tr>
                 <th>Username:</th>
-                <td><?= htmlspecialchars($user->Username) ?></td>
+                <td><?= htmlspecialchars($user->username) ?></td>
             </tr>
             <tr>
                 <th>Email:</th>
